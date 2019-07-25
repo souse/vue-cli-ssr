@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "serve": "cross-env NODE_ENV=development npm run build && cross-env NODE_ENV=development npm start && cross-env NODE_ENV=development  npm run serve:client",
+    "serve:client": "vue-cli-service serve",
+    "build": "npm run build:server -- --silent && npm run build:client -- --no-clean --silent",
+    "build:client": "vue-cli-service build",
+    "build:server": "cross-env TARGET_ENV=node vue-cli-service build",
+    "start": "node server.js"
   },
   "dependencies": {
     "core-js": "^2.6.5",
@@ -18,6 +22,11 @@
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.9.0",
     "@vue/cli-service": "^3.9.0",
-    "vue-template-compiler": "^2.6.10"
+    "copy-webpack-plugin": "^5.0.3",
+    "cross-env": "^5.2.0",
+    "http-proxy-middleware": "^0.19.1",
+    "lodash": "^4.17.15",
+    "vue-template-compiler": "^2.6.10",
+    "webpack-node-externals": "^1.7.2"
   }
 }
